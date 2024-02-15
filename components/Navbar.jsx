@@ -1,13 +1,10 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import styled from 'styled-components';
-
-
+import Wrapper from '../src/assets/wrappers/Navbar';
 const Navbar = () => {
 	return (
-		<nav>
+		<Wrapper>
 			<div className='nav-center'>
-				
 				<span className='logo'>MixMaster</span>
 				<div className='nav-links'>
 					<NavLink
@@ -27,7 +24,7 @@ const Navbar = () => {
 					</NavLink>
 				</div>
 			</div>
-		</nav>
+		</Wrapper>
 	);
 };
 
