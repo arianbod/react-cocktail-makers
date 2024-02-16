@@ -21,8 +21,16 @@ const Cocktail = () => {
 		strDrinkThumb: image,
 		strAlcoholic: info,
 		strGlass: glass,
-		strInstruction: instructions,
+		strInstructions: instructions,
+		strCategory: category,
 	} = singleDrink;
+
+	let ingredients = [];
+	for (let i = 1; i <= 15; i++) {
+		const ingredient = singleDrink[`strIngredient${i}`];
+		ingredient && ingredients.push(ingredient);
+	}
+	console.log(ingredients);
 	console.log(singleDrink);
 	return (
 		<Wrapper>
@@ -40,8 +48,38 @@ const Cocktail = () => {
 					alt={name}
 					className='img'
 				/>
-				<p>{info}</p>
-				<p>{glass}</p>
+				<div className='drink-info'>
+					<p>
+						<span className='drink-data'>name:</span>
+						{name}
+					</p>
+					<p>
+						<span className='drink-data'>category:</span>
+						{category}
+					</p>
+					<p>
+						<span className='drink-data'>info:</span>
+						{info}
+					</p>
+					<p>
+						<span className='drink-data'>glass:</span>
+						{glass}
+					</p>
+					<p>
+						<span className='drink-data'>instructions:</span>
+						{instructions}
+					</p>
+					<p>
+						<span className='drink-data'>ingredient:</span>
+						{ingredients.map((item, index) => {
+							return (
+								<span key={index}>
+									{item} {index < ingredients.length - 1 ? ',' : ''}
+								</span>
+							);
+						})}
+					</p>
+				</div>
 			</div>
 		</Wrapper>
 	);
