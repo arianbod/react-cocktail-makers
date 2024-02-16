@@ -11,6 +11,16 @@ const CocktailCard = ({ id, image, info, glass, name }) => {
 					className='img'
 				/>
 			</div>
+			<div className='footer'>
+				<h4>{name}</h4>
+				<h5>{glass}</h5>
+				<p>{info}</p>
+				<Link
+					to={`/cocktail/${id}`}
+					className='btn'>
+					Details
+				</Link>
+			</div>
 		</Wrapper>
 	);
 };
