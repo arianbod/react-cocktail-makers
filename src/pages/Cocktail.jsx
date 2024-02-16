@@ -15,6 +15,19 @@ export const loader = async ({ params }) => {
 };
 const Cocktail = () => {
 	const { id, data } = useLoaderData();
+	console.log(data);
+	if (!data || data.drinks === null)
+		return (
+			<>
+				<h2>something went wrong ...</h2>
+				<Link
+					to='/'
+					className='btn'>
+					back Home
+				</Link>
+			</>
+		);
+
 	const singleDrink = data.drinks[0];
 	const {
 		strDrink: name,
@@ -26,9 +39,15 @@ const Cocktail = () => {
 	} = singleDrink;
 
 	let ingredients = [];
-	for (let i = 1; i <= 15; i++) {
+	let i = 1;
+	while (true) {
 		const ingredient = singleDrink[`strIngredient${i}`];
-		ingredient && ingredients.push(ingredient);
+		if (ingredient) {
+			ingredients.push(ingredient);
+			i++;
+		} else {
+			break;
+		}
 	}
 	console.log(ingredients);
 	console.log(singleDrink);
@@ -85,4 +104,4 @@ const Cocktail = () => {
 	);
 };
 
-export default Cocktail;
+export default React.memo(Cocktail);
