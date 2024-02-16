@@ -4,7 +4,7 @@ import { Link, useRouteError } from 'react-router-dom';
 import img from '../assets/not-found.svg';
 const Error = () => {
 	const error = useRouteError();
-	console.log();
+	console.log(error);
 	return (
 		<Wrapper>
 			{error.status === 404 ? (
@@ -19,6 +19,7 @@ const Error = () => {
 				</div>
 			) : (
 				<>
+					<h3>some error occurred</h3>
 					<h1>{error.status}</h1>
 					<h6>{error.data}</h6>
 				</>
