@@ -4,7 +4,7 @@ import Error from './Error';
 import HomeLayout from './HomeLayout';
 import Landing from './Landing';
 import Newsletter from './Newsletter';
-import SInglePageError from './SInglePageError';
+import SinglePageError from './SinglePageError';
 
 export {
 	About,
@@ -13,5 +13,5 @@ export {
 	HomeLayout,
 	Landing,
 	Newsletter,
-	SInglePageError,
+	SinglePageError,
 };
