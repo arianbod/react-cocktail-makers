@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import Wrapper from '../src/assets/wrappers/Navbar';
+import Wrapper from '../assets/wrappers/Navbar';
 const Navbar = () => {
 	return (
 		<Wrapper>
