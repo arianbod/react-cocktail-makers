@@ -22,10 +22,8 @@ export const loader = async ({ request }) => {
 };
 const Landing = () => {
 	const { searchTerm } = useLoaderData();
-	const { data: drinks, isLoading } = useQuery(searchCocktailQuery(searchTerm));
-	if (isLoading) {
-		<h1>Loading...</h1>;
-	}
+	const { data: drinks } = useQuery(searchCocktailQuery(searchTerm));
+
 	return (
 		<>
 			<SearchForm searchTerm={searchTerm} />
