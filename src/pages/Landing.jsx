@@ -3,15 +3,29 @@ import React from 'react';
 import { useLoaderData } from 'react-router-dom';
 import CocktailList from '../components/CocktailList';
 import SearchForm from '../components/SearchForm';
+import { useQuery } from '@tanstack/react-query';
 const cocktailUrl = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+const searchCocktailQuery = (searchTerm) => {
+	return {
+		queryKey: ['search', searchTerm || 'all'],
+		queryFn: async () => {
+			const response = await axios.get(`${cocktailUrl}${searchTerm}`);
+			return response.data.drinks;
+		},
+	};
+};
 export const loader = async ({ request }) => {
 	const url = new URL(request.url);
 	const searchTerm = url.searchParams.get('search') || '';
-	const response = await axios.get(`${cocktailUrl}${searchTerm}`);
-	return { drinks: response.data.drinks, searchTerm };
+
+	return { searchTerm };
 };
 const Landing = () => {
-	const { drinks, searchTerm } = useLoaderData();
+	const { searchTerm } = useLoaderData();
+	const { data: drinks, isLoading } = useQuery(searchCocktailQuery(searchTerm));
+	if (isLoading) {
+		<h1>Loading...</h1>;
+	}
 	return (
 		<>
 			<SearchForm searchTerm={searchTerm} />
