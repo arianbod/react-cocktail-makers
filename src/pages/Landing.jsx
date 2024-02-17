@@ -14,12 +14,14 @@ const searchCocktailQuery = (searchTerm) => {
 		},
 	};
 };
-export const loader = async ({ request }) => {
-	const url = new URL(request.url);
-	const searchTerm = url.searchParams.get('search') || '';
-
-	return { searchTerm };
-};
+export const loader =
+	(queryClient) =>
+	async ({ request }) => {
+		const url = new URL(request.url);
+		const searchTerm = url.searchParams.get('search') || '';
+		await queryClient.ensureQueryData(searchCocktailQuery(searchTerm));
+		return { searchTerm };
+	};
 const Landing = () => {
 	const { searchTerm } = useLoaderData();
 	const { data: drinks } = useQuery(searchCocktailQuery(searchTerm));
