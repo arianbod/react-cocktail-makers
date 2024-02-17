@@ -1,12 +1,24 @@
+import axios from 'axios';
 import React from 'react';
-import { Form } from 'react-router-dom';
+import { Form, redirect, useNavigation } from 'react-router-dom';
+import { toast } from 'react-toastify';
+const newsletterUrl = 'https://course-api.com/cocktails-newsletter';
 export const action = async ({ request }) => {
 	const formData = await request.formData();
 	const data = Object.fromEntries(formData);
-	console.log(data);
-	return null;
+	try {
+		const response = await axios.post(newsletterUrl, data);
+		toast.success(response.data.msg);
+		return redirect('/');
+	} catch (error) {
+		console.error(error);
+		toast.error(error?.response?.data?.msg);
+		return error;
+	}
 };
 const Newsletter = () => {
+	const navigation = useNavigation();
+	const isSubmitting = navigation.state === 'submitting';
 	return (
 		<Form
 			className='form'
@@ -22,12 +34,11 @@ const Newsletter = () => {
 					name
 				</label>
 				<input
+					required
 					type='text'
-					defaultValue='John'
-					className='form-input'
+					className='form-input required'
 					name='name'
 					id='name'
-					required
 				/>
 			</div>
 			<div className='form-row'>
@@ -37,34 +48,34 @@ const Newsletter = () => {
 					last Name
 				</label>
 				<input
+					required
 					type='text'
-					defaultValue='smith'
-					className='form-input'
+					className='form-input required'
 					name='lastName'
 					id='lastName'
-					required
 				/>
 			</div>
 			<div className='form-row'>
 				<label
-					htmlFor='Email'
+					htmlFor='email'
 					className='form-label'>
-					Email
+					email
 				</label>
 				<input
-					type='text'
-					defaultValue='John@test.com'
-					className='form-input'
-					name='Email'
-					id='Email'
 					required
+					type='text'
+					defaultValue='test@test.com'
+					className='form-input required'
+					name='email'
+					id='email'
 				/>
 			</div>
 			<button
 				className='btn btn-block'
 				type='submit'
-				style={{ marginTop: '0.5rem' }}>
-				submit
+				style={{ marginTop: '0.5rem' }}
+				disabled={isSubmitting}>
+				{isSubmitting ? 'submitting' : 'submit'}
 			</button>
 		</Form>
 	);
